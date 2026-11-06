@@ -17,9 +17,19 @@
     // Делим только по обычным пробелам: неразрывный пробел (&nbsp;) держит слова вместе
     const words = title.textContent.trim().split(/ +/);
     title.setAttribute("aria-label", title.textContent.trim().replace(/ /g, " "));
-    title.innerHTML = words
-      .map((wd, i) => `<span class="word" aria-hidden="true"><span style="--i:${i}">${wd}</span></span>`)
-      .join(" ");
+    // Слова вставляем через textContent, а не innerHTML — так в заголовок не пролезет чужой код
+    title.textContent = "";
+    words.forEach((wd, i) => {
+      const outer = document.createElement("span");
+      outer.className = "word";
+      outer.setAttribute("aria-hidden", "true");
+      const inner = document.createElement("span");
+      inner.style.setProperty("--i", i);
+      inner.textContent = wd;
+      outer.appendChild(inner);
+      if (i > 0) title.appendChild(document.createTextNode(" "));
+      title.appendChild(outer);
+    });
 
     function measure() {
       const box = title.getBoundingClientRect();
