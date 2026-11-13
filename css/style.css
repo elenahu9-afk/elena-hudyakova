@@ -21,7 +21,7 @@
   --mint: #6FFFC4;
 
   --grad: linear-gradient(110deg, var(--violet), var(--blue) 35%, var(--turq) 65%, var(--mint));
-  --font-display: "Unbounded", system-ui, sans-serif;
+  --font-display: "Yeseva One", Georgia, serif;
   --font-body: "Onest", system-ui, sans-serif;
 
   --r-xl: clamp(28px, 4vw, 48px);
@@ -41,6 +41,8 @@ body {
   color: var(--ink);
   font: 400 17px/1.6 var(--font-body);
   -webkit-font-smoothing: antialiased;
+  /* у Yeseva One одно начертание: запрещаем браузеру рисовать «поддельный» жирный */
+  font-synthesis: style;
   overflow-x: clip;
 }
 a { color: inherit; }
